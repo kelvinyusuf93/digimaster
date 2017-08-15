@@ -4,7 +4,7 @@
 	<link rel="stylesheet" type="text/css" href="<?=css('bootstrap.min.css')?>">
 	<link rel="stylesheet" type="text/css" href="<?=css('custom.css')?>">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<title>Training</title>
+	<title><?=$title['digimaster_header_content']?></title>
 </head>
 <body>
 	<header>
@@ -17,14 +17,16 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="<?=base_url()?>"><img src="<?=img('logo-digimaster.png')?>" class="logo-desktop" alt="digimaster"></a>
+
+					<a class="navbar-brand" href="<?=base_url($logo['digimaster_header_url'])?>">
+						<img src="<?=img($logo['digimaster_header_img'])?>" class="logo-desktop" alt="digimaster">
+					</a>
 				</div>
 				<div class="collapse navbar-collapse" id="nav-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">Services</a></li>
-						<li><a href="#" class="active">Training</a></li>
-						<li><a href="#">About</a></li>
-						<li><a href="#">Contact</a></li>
+						<?php foreach($menu as $m): ?>
+							<li><a href="<?=base_url($m['digimaster_header_url'])?>" class="<?=$active_segment === $m['digimaster_header_url'] ? 'active' : ''?>"><?=$m['digimaster_header_content']?></a></li>
+						<?php endforeach; ?>
 					</ul>
 				</div>
 			</div>

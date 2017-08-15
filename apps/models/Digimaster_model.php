@@ -16,6 +16,11 @@
 			return $this->db->trans_begin();
 		}
 
+		public function orderBy($field, $direction = 'asc') {
+			$this->db->order_by($field, $direction);
+			return $this;
+		}
+
 		public function start_trans_status(){
 			return $this->db->trans_status();
 		}
@@ -86,4 +91,33 @@
 	    public function digimaster__footer_content_count(){
 	    	return $this->db->get('digimaster__footer_content')->num_rows();
 	    }
+
+	    // Get Content Header
+	    public function digimaster__header_content_all(){
+	    	return $this->db->get('digimaster__header_content')->result_array();
+	    }
+
+	    public function digimaster__header_content_single(){
+	    	return $this->db->get('digimaster__header_content')->row_array();
+	    }
+
+	    public function digimaster__header_content_count(){
+	    	return $this->db->get('digimaster__header_content')->num_rows();
+	    }
+
+	    // Get Banner
+	    public function digimaster__banner_all(){
+	    	return $this->db->get('digimaster__banner')->result_array();
+	    }
+
+	    // Get Subject
+	    public function digimaster__master_subject_all(){
+	    	return $this->db->get('digimaster__master_subject')->result_array();
+	    }
+
+	    // Get Main Content
+	    public function digimaster__main_content_all(){
+	    	return $this->db->get('digimaster__main_content')->result_array();
+	    }
+
 	}

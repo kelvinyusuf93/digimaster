@@ -2,24 +2,18 @@
 	<div id="myCarousel" class="carousel slide" data-ride="carousel">
 		<!-- Indicators -->
 		<ol class="carousel-indicators">
-			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-			<li data-target="#myCarousel" data-slide-to="1"></li>
-			<li data-target="#myCarousel" data-slide-to="2"></li>
+			<?php foreach($banner as $b): ?>
+				<li data-target="#myCarousel" data-slide-to="<?=$b['digimaster_banner_id']-1?>" class="<?=($b['digimaster_banner_id']-1) == 0 ? 'active' : ''?>"></li>
+			<?php endforeach; ?>
 		</ol>
 
 		<!-- Wrapper for slides -->
 		<div class="carousel-inner banner">
-			<div class="item active">
-				<img src="images/banner-1.jpg" alt="">
-			</div>
-
-			<div class="item">
-				<img src="images/banner-2.jpg" alt="">
-			</div>
-
-			<div class="item">
-				<img src="images/banner-3.jpg" alt="">
-			</div>
+			<?php foreach($banner as $b): ?>
+				<div class="item <?=($b['digimaster_banner_id']-1) == 0 ? 'active' : ''?>">
+					<img src="<?=img($b['digimaster_banner_img'])?>" alt="">
+				</div>
+			<?php endforeach; ?>
 		</div>
 
 		<!-- Left and right controls -->
@@ -39,17 +33,10 @@
 			<div class="col-md-1"></div>
 			<div class="col-md-3">
 				<select class="form-control" id="sel1">
-					<option>Choose Subject</option>
-					<option>Subject 1</option>
-					<option>Subject 2</option>
-					<option>Subject 3</option>
-					<option>Subject 4</option>
-					<option>Subject 5</option>
-					<option>Subject 6</option>
-					<option>Subject 7</option>
-					<option>Subject 8</option>
-					<option>Subject 9</option>
-					<option>Subject 10</option>
+					<option value="">- Choose -</option>
+					<?php foreach($ms_subject as $ms): ?>
+					<option value="<?=$ms['digimaster_subject_id']?>"><?=$ms['digimaster_subject_name']?></option>
+					<?php endforeach; ?>
 				</select>
 			</div>
 			<div class="col-md-7">
@@ -58,7 +45,7 @@
 						<input type="text" class="form-control input-block" placeholder="Temukan training yang cocok untuk Anda...">
 						<div class="input-group-btn">
 							<button class="btn btn-default" type="submit">
-								<i class="icon-search"></i>
+								<i class="fa fa-search"></i>
 							</button>
 						</div>
 					</div>
@@ -75,59 +62,27 @@
 					</div>
 					<div class="panel-body">
 						<div class="row">
-							<div class="col-sm-6 col-md-3">
-								<div class="thumbnail">
-									<img src="images/banner-4.jpg" alt="...">
-									<div class="caption">
-										<h3>Judul</h3>
-										<span>Harga</span>
-										<div align="center"><br>
-											<a href="#" class="btn btn-view-more" role="button">Detail <i class="icon-double-angle-right"></i></a>
+
+							<?php foreach($main_content as $mc): ?>
+								<div class="col-sm-6 col-md-3">
+									<div class="thumbnail">
+										<img src="<?=img($mc['digimaster_main_img'])?>" alt="...">
+										<div class="caption">
+											<h3><?=$mc['digimaster_main_name']?></h3>
+											<span>Rp. <?=number_format($mc['digimaster_main_price'], 0, ",",".")?> ,-</span>
+											<div align="center"><br>
+												<a href="<?=base_url('detail/'.$mc['digimaster_main_slug'])?>" class="btn btn-view-more" role="button">Detail <i class="icon-double-angle-right"></i></a>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-sm-6 col-md-3">
-								<div class="thumbnail">
-									<img src="images/banner-4.jpg" alt="...">
-									<div class="caption">
-										<h3>Judul</h3>
-										<span>Harga</span>
-										<div align="center"><br>
-											<a href="#" class="btn btn-view-more" role="button">Detail <i class="icon-double-angle-right"></i></a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6 col-md-3">
-								<div class="thumbnail">
-									<img src="images/banner-4.jpg" alt="...">
-									<div class="caption">
-										<h3>Judul</h3>
-										<span>Harga</span>
-										<div align="center"><br>
-											<a href="#" class="btn btn-view-more" role="button">Detail <i class="icon-double-angle-right"></i></a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6 col-md-3">
-								<div class="thumbnail">
-									<img src="images/banner-4.jpg" alt="...">
-									<div class="caption">
-										<h3>Judul</h3>
-										<span>Harga</span>
-										<div align="center"><br>
-											<a href="#" class="btn btn-view-more" role="button">Detail <i class="icon-double-angle-right"></i></a>
-										</div>
-									</div>
-								</div>
-							</div>
+							<?php endforeach; ?>
+							
 						</div>
 					</div>
 					<div class="panel-footer new-training">
 						<div align="center">
-							<a href="#" class="btn btn-view-more" role="button">View All Training</a>
+							<a href="<?=base_url('list')?>" class="btn btn-view-more" role="button">View All Training</a>
 						</div>
 					</div>
 				</div>
