@@ -17,6 +17,28 @@ DROP DATABASE IF EXISTS `digimaster`;
 CREATE DATABASE IF NOT EXISTS `digimaster` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `digimaster`;
 
+-- Dumping structure for table digimaster.digimaster__about_content
+DROP TABLE IF EXISTS `digimaster__about_content`;
+CREATE TABLE IF NOT EXISTS `digimaster__about_content` (
+  `digimaster_about_id` int(11) NOT NULL AUTO_INCREMENT,
+  `digimaster_about_type` enum('About Us','Vision','Mission','Core Value') NOT NULL,
+  `digimaster_about_content` text NOT NULL,
+  `digimaster_about_created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `digimaster_about_updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `digimaster_about_status` enum('Y','N') DEFAULT 'N',
+  PRIMARY KEY (`digimaster_about_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table digimaster.digimaster__about_content: ~0 rows (approximately)
+DELETE FROM `digimaster__about_content`;
+/*!40000 ALTER TABLE `digimaster__about_content` DISABLE KEYS */;
+INSERT INTO `digimaster__about_content` (`digimaster_about_id`, `digimaster_about_type`, `digimaster_about_content`, `digimaster_about_created_at`, `digimaster_about_updated_at`, `digimaster_about_status`) VALUES
+	(1, 'About Us', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <br>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <br>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '2017-08-18 23:25:58', '2017-08-19 00:28:39', 'Y'),
+	(2, 'Vision', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <br>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <br>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '2017-08-18 23:26:02', '2017-08-19 00:28:40', 'Y'),
+	(3, 'Mission', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <br>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <br>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '2017-08-18 23:26:05', '2017-08-19 00:28:41', 'Y'),
+	(4, 'Core Value', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <br>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <br>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '2017-08-18 23:26:08', '2017-08-19 00:28:42', 'Y');
+/*!40000 ALTER TABLE `digimaster__about_content` ENABLE KEYS */;
+
 -- Dumping structure for table digimaster.digimaster__banner
 DROP TABLE IF EXISTS `digimaster__banner`;
 CREATE TABLE IF NOT EXISTS `digimaster__banner` (
