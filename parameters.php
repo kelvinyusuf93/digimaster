@@ -4,7 +4,7 @@
 		'dsn'				=> '',
 		'hostname' 			=> '127.0.0.1',
 		'username' 			=> 'root',
-		'password' 			=> 'kelvin010993',
+		'password' 			=> '',
 		'database' 			=> 'digimaster',
 		'dbdriver' 			=> 'mysqli',
 		'dbprefix' 			=> '',

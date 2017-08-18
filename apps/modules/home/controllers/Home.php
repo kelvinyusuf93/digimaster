@@ -40,7 +40,7 @@
 			$setting_config 		=	$this->config->item('digimaster_about_page_priority');
 			$class_config 			=	$this->config->item('digimaster_about_page_bootstrap');
 
-			$get_about 				=	$this->Digimaster_model->where(array('digimaster_about_status' => 'Y'))->setLimit('4')->orderBy('digimaster_about_id', 'DESC')->digimaster__about_content_all();
+			$get_about 				=	$this->Digimaster_model->where(array('digimaster_about_status' => 'Y'))->setLimit('4')->orderBy('digimaster_about_id', 'DESC')->groupBy('digimaster_about_type')->digimaster__about_content_all();
 
 			$about 					=	array();
 

@@ -55,6 +55,11 @@
 			if($orwhere != '')	$this->db->or_where($orwhere);
 			return $this;
 		}
+
+		public function groupBy($group_by = ''){
+			$this->db->group_by($group_by);
+			return $this;
+		}
 		
 		public function whereNotIn($field = '', $condition = ''){
 			if($field != '' && $condition != '') $this->db->where_not_in($field, $condition);
