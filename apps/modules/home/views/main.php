@@ -31,14 +31,22 @@
 		<br><br>
 		<div class="row" align="center">
 			<div class="col-md-1"></div>
-			<div class="col-md-3">
-				<select class="form-control" id="sel1">
-					<option value="">- Choose -</option>
-					<?php foreach($ms_subject as $ms): ?>
-					<option value="<?=$ms['digimaster_subject_id']?>"><?=$ms['digimaster_subject_name']?></option>
-					<?php endforeach; ?>
-				</select>
+
+			<div class="col-md-2">
+				<div class="dropdown" style="display: inline-block;">
+					<button class="btn btn-default dropdown-toggle btn-block" type="button" data-toggle="dropdown">		Choose Subject
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<?php foreach($ms_subject as $ms): ?>
+						<li><a href="#"><?=$ms['digimaster_subject_name']?></a></li>
+						<?php endforeach; ?>
+						<li class="divider"></li>
+						<li><a href="<?=base_url('all-subject')?>">View All Subject</a></li>
+					</ul>
+				</div>
 			</div>
+
 			<div class="col-md-7">
 				<form action="#" method="GET" class="navbar-form navbar-left m-t-0" role="search">
 					<div class="col-md-5 input-group search">

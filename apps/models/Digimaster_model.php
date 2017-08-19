@@ -125,6 +125,10 @@
 	    	return $this->db->get('digimaster__main_content')->result_array();
 	    }
 
+	    public function digimaster__main_content_count(){
+	    	return $this->db->get('digimaster__main_content')->num_rows();
+	    }
+
 	    // Get About Content
 	    public function digimaster__about_content_all(){
 	    	return $this->db->get('digimaster__about_content')->result_array();

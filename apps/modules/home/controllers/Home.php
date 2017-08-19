@@ -6,6 +6,7 @@
 	    {
 	        parent::__construct();
 	        $this->load->model('Digimaster_model');
+	        $this->load->library('pagination');
 	    }
 
 	    public function error_404(){
@@ -25,11 +26,6 @@
 			$this->data['banner'] 	=	$this->Digimaster_model->where(array('digimaster_banner_status' => 'Y'))->digimaster__banner_all();
 
 			$this->load->view('main', $this->data);
-		}
-
-		public function services(){
-			$this->load->view('header', $this->data);
-			$this->load->view('footer', $this->data);
 		}
 
 		public function about(){
@@ -99,11 +95,65 @@
 			$this->load->view('footer', $this->data);
 		}
 
-		public function contact(){
+		public function all_subject(){
+			// Showing Page
+			if(is_int((int)$this->input->get('show')) && $this->input->get('show') > 0){
+				$showing_page 	=	$this->input->get('show');
+			}else{
+				$showing_page 	=	$this->config->item('number_per_page');
+			}
+
+			// Sort By Page
+			$this->data['show_page']	=	$this->config->item('show_page');
+			$this->data['sort_by']		=	$this->config->item('sort_by');
+
+			// Initialize Pagination
+			$total_rows 			= $this->Digimaster_model->where(array('digimaster_main_status' => 'Y'))->digimaster__main_content_count();
+
+			$config['base_url'] 	=	base_url('all-subject');
+			$config['total_rows'] 	=	$total_rows;
+			$config['per_page'] 	=	$showing_page;
+			$config['page_query_string'] 	=	TRUE;
+			$config['use_page_numbers'] 	=	TRUE;
+			$config['reuse_query_string'] 	=	TRUE;
+			$config['query_string_segment'] =  'page';
+
+			$config['next_tag_open'] 		= 	'<li>';
+			$config['next_tag_close'] 		= 	'</li>';
+
+			$config['prev_tag_open']		=	'<li>';
+			$config['prev_tag_close']		=	'</li>';
+
+			$config['cur_tag_open']			=	'<li><a href="#">';
+			$config['cur_tag_close']		=	'</a></li>';
+
+			$config['num_tag_open']			=	'<li>';
+			$config['num_tag_close']		=	'</li>';
+
+			$this->pagination->initialize($config);
+
+
+			$this->data['paging']			=	$this->pagination->create_links();
+
+
+			// Get Master Subject
+			$this->data['ms_subject']	=	$this->Digimaster_model->where(array('digimaster_subject_status' => 'Y'))->digimaster__master_subject_all();
+
+			// Get Main Content
+			$limitation_page 				=	$this->input->get('page') > 0 ? $this->input->get('page') : 0;
+			$limitation_page 				=	$limitation_page > 0 ? $limitation_page-1 : $limitation_page;
+			$set_limit 						=	$showing_page * $limitation_page;
+
+			$sorting_key 					=	$this->input->get('sorting') != '' ? $this->config->item('sort_by')[$this->input->get('sorting')] : $this->config->item('default_sort');
+
+			$sorting_value 					=	$this->config->item('sort_keys')[$sorting_key];
+
+			$this->data['main_content'] 	=	$this->Digimaster_model->where(array('digimaster_main_status' => 'Y'))->setLimit($showing_page, $set_limit)->orderBy($sorting_key, $sorting_value)->digimaster__main_content_all();
+
 			$this->load->view('header', $this->data);
+			$this->load->view('all_subject', $this->data);
 			$this->load->view('footer', $this->data);
 		}
-
 
 	}
 ?>
