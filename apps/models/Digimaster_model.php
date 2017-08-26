@@ -129,9 +129,27 @@
 	    	return $this->db->get('digimaster__main_content')->num_rows();
 	    }
 
+	    public function digimaster__main_content_single(){
+	    	return $this->db->get('digimaster__main_content')->row_array();
+	    }
+
 	    // Get About Content
 	    public function digimaster__about_content_all(){
 	    	return $this->db->get('digimaster__about_content')->result_array();
+	    }
+
+	    // Get Detail Content
+	    public function digimaster__main_detail_all(){
+	    	return $this->db->get('digimaster__main_detail')->result_array();
+	    }
+
+	    public function digimaster__main_detail_single(){
+	    	return $this->db->get('digimaster__main_detail')->row_array();
+	    }
+
+	    // Get Detail Schedule
+	    public function digimaster__main_schedule_all(){
+	    	return $this->db->get('digimaster__main_schedule')->result_array();
 	    }
 
 	}

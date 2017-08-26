@@ -155,5 +155,33 @@
 			$this->load->view('footer', $this->data);
 		}
 
+		public function detail($slug_segment){
+			$verified_slug 		=	$this->Digimaster_model->where(array('digimaster_main_slug' => $slug_segment))->digimaster__main_content_count();
+
+			if($verified_slug){
+				// Single Courses Detail
+				$this->data['detail_courses'] 	=	$this->Digimaster_model->where(array('digimaster_main_slug' => $slug_segment))->digimaster__main_content_single();
+
+				// Course Id
+				$course_id 						=	$this->data['detail_courses']['digimaster_main_id'];
+
+				// Get Other Course
+				$this->data['other_courses']	=	$this->Digimaster_model->where(array('digimaster_main_slug !=' => $slug_segment))->setLimit(4)->orderBy('digimaster_main_created_on', 'DESC')->digimaster__main_content_all();
+
+				// Get Detail Course
+				$this->data['detail_course_desc'] 	=	$this->Digimaster_model->where(array('digimaster_main_content_id' => $course_id, 'digimaster_main_detail_status' => 'Y'))->digimaster__main_detail_single();
+
+				// Get Detail Date
+				$this->data['detail_course_schedule_date']	=	$this->Digimaster_model->where(array('digimaster_main_content_id' => $course_id, 'digimaster_main_schedule_status' => 'Y'))->digimaster__main_schedule_all();
+
+				$this->load->view('header', $this->data);
+				$this->load->view('main_detail', $this->data);
+				$this->load->view('footer', $this->data);
+			}else{
+				redirect('','AUTO',301);
+			}
+
+		}
+
 	}
 ?>
