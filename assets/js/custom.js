@@ -36,6 +36,31 @@ $(document).ready(function(){
 			url_query = 'sorting='+getSort+'&show='+current_val;
 			window.location.href = current_url+"?"+url_query;
 		});
+	}
 
+	if($("#sort_search").length > 0 && $("#show_search").length > 0){
+		var getSort = getUrlVars()["sorting"];
+		var getShow = getUrlVars()["show"];
+		var getSearch = getUrlVars()["q"];
+
+		if(getShow === undefined || typeof getShow === undefined){
+			getShow = '';
+		}
+
+		if(getSort === undefined || typeof getSort === undefined){
+			getSort = '';
+		}
+
+		$("#sort_search").change(function(){
+			current_val = $(this).val();
+			url_query = 'q='+getSearch+'&sorting='+current_val+'&show='+getShow;
+			window.location.href = current_url+"?"+url_query;
+		});
+
+		$("#show_search").change(function(){
+			current_val = $(this).val();
+			url_query = 'q='+getSearch+'&sorting='+getSort+'&show='+current_val;
+			window.location.href = current_url+"?"+url_query;
+		});
 	}
 });

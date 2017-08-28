@@ -1,6 +1,6 @@
 	<div class="container-fluid"><br>
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<form class="form-inline">
+		<form class="form-inline" action="<?=base_url('search')?>" method="GET" >
 			<div class="dropdown" style="display: inline-block;">
 				<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Choose
 					<span class="caret"></span></button>
@@ -11,7 +11,7 @@
 					</ul>
 				</div>
 				<div class="input-group search">
-					<input type="text" class="form-control input-block" placeholder="Temukan training yang cocok untuk Anda...">
+					<input type="text" class="form-control input-block" placeholder="Temukan training yang cocok untuk Anda..." name="q">
 					<div class="input-group-btn">
 						<button class="btn btn-default" type="submit">
 							<i class="fa fa-search"></i>

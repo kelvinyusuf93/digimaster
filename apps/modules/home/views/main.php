@@ -48,9 +48,9 @@
 			</div>
 
 			<div class="col-md-7">
-				<form action="#" method="GET" class="navbar-form navbar-left m-t-0" role="search">
+				<form action="<?=base_url('search')?>" method="GET" class="navbar-form navbar-left m-t-0" role="search">
 					<div class="col-md-5 input-group search">
-						<input type="text" class="form-control input-block" placeholder="Temukan training yang cocok untuk Anda...">
+						<input type="text" class="form-control input-block" name="q" placeholder="Temukan training yang cocok untuk Anda...">
 						<div class="input-group-btn">
 							<button class="btn btn-default" type="submit">
 								<i class="fa fa-search"></i>

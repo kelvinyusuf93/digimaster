@@ -183,5 +183,92 @@
 
 		}
 
+		public function search(){
+			// Sort By Page
+			$this->data['show_page']	=	$this->config->item('show_page');
+			$this->data['sort_by']		=	$this->config->item('sort_by');
+
+			$keywords 	=	$this->input->get('q');
+			if($keywords == ''){
+				redirect('', 'AUTO', 301);
+			}
+
+			$split_keywords 			=	explode(" ", $keywords);
+			$query_builder_count 		=	"SELECT COUNT('digimaster_main_id') as total_search FROM digimaster__main_content WHERE digimaster_main_name LIKE '%${keywords}%' OR (";
+			$query_builder_data 		=	"SELECT * FROM digimaster__main_content WHERE digimaster_main_name LIKE '%${keywords}%' OR (";
+
+			$total_keywords 			=	sizeof($split_keywords);
+			$temp_query					=	"";
+			for($i = 0; $i < $total_keywords; $i++){
+				$temp_query 	.=	"digimaster_main_name LIKE '%{$split_keywords[$i]}%' AND ";
+			}
+
+			//rtrim query builder DATA
+			$temp_query 		=	rtrim($temp_query, "AND ");
+			$temp_query			.=	")";
+
+			$query_builder_data .= $temp_query;
+			$query_builder_count .= $temp_query;
+
+			$result_count 				=	$this->db->query($query_builder_count)->row_array();
+			if($result_count['total_search'] == 0){
+				$this->data['result_search'] 	=	"Course Not Found.";
+				$this->data['result']			=	array();
+			}else{
+				$this->data['result_search']	=	$result_count['total_search']." data found";
+
+				// Showing Page
+				if(is_int((int)$this->input->get('show')) && $this->input->get('show') > 0){
+					$showing_page 	=	$this->input->get('show');
+				}else{
+					$showing_page 	=	$this->config->item('number_per_page');
+				}
+
+				$config['base_url'] 	=	base_url('search');
+				$config['total_rows'] 	=	$result_count['total_search'];
+				$config['per_page'] 	=	$showing_page;
+				$config['page_query_string'] 	=	TRUE;
+				$config['use_page_numbers'] 	=	FALSE;
+				$config['reuse_query_string'] 	=	TRUE;
+				$config['query_string_segment'] =  	'page';
+				$config['next_tag_open'] 		= 	'<li>';
+				$config['next_tag_close'] 		= 	'</li>';
+
+				$config['prev_tag_open']		=	'<li>';
+				$config['prev_tag_close']		=	'</li>';
+
+				$config['cur_tag_open']			=	'<li><a href="#">';
+				$config['cur_tag_close']		=	'</a></li>';
+
+				$config['num_tag_open']			=	'<li>';
+				$config['num_tag_close']		=	'</li>';
+
+				$this->pagination->initialize($config);
+
+				$this->data['paging']	=	$this->pagination->create_links();
+
+				// Get Main Content
+				$limitation_page 				=	$showing_page > 0 ? $this->input->get('page') : 0;
+				$limitation_page 				=	$limitation_page > 0 ? $limitation_page-1 : $limitation_page;
+				$set_limit 						=	$showing_page * $limitation_page;
+
+				$sorting_key 					=	$this->input->get('sorting') != '' ? $this->config->item('sort_by')[$this->input->get('sorting')] : $this->config->item('default_sort');
+				$sorting_value 					=	$this->config->item('sort_keys')[$sorting_key];
+
+				$query_builder_data 	.= " ORDER BY {$sorting_key} {$sorting_value}";
+				$query_builder_data 	.= " LIMIT {$set_limit}, {$showing_page}";
+
+				$result_execute 		=	$this->Digimaster_model->manual_query($query_builder_data)->result_array();
+				$this->data['result']	=	$result_execute;
+			}
+
+			
+
+			$this->load->view('header', $this->data);
+			$this->load->view('search', $this->data);
+			$this->load->view('footer', $this->data);
+
+		}
+
 	}
 ?>
